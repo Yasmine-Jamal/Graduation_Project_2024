@@ -126,8 +126,12 @@ h2 {
 }
 
 .step img, .feature img, .benefit img {
-    max-width: 100px;
-    margin-bottom: 1rem;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 1.1rem;
+}
+.step .step2{
+    width: 250px;
 }
 
 blockquote {
