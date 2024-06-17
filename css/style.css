@@ -1,0 +1,280 @@
+/* Base Styles */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* margin: 0; */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+
+.navbar {
+    background: #333;
+    color: #fff;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 1px 1px 5px #858383;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-logo img {
+    max-height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1rem;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.nav-start button {
+    background: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.nav-start button:hover {
+    background: #ff4500;
+}
+
+/* Header */
+header {
+    background: #333;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+header img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    font-size: 1.2rem;
+}
+
+header button {
+    background: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+header button:hover {
+    background: #ff4500;
+}
+
+section {
+    padding: 2rem;
+    margin: 2rem 0;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.steps, .features-list, .benefit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    text-align: center;
+}
+
+.step img, .feature img, .benefit img {
+    max-width: 100px;
+    margin-bottom: 1rem;
+}
+
+blockquote {
+    border-left: 5px solid #ff6347;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #555;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+#product-demo video {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+#cta {
+    text-align: center;
+    padding: 2rem;
+    background: #ff6347;
+    color: #fff;
+}
+
+#cta button {
+    background: #fff;
+    color: #ff6347;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#cta button:hover {
+    background: #f0f0f0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin: 0.5rem 0 0.2rem;
+}
+
+form input, form textarea {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+form button:hover {
+    background: #ff4500;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    header button {
+        padding: 0.5rem 1rem;
+    }
+
+    form label, form input, form textarea, form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .steps, .features-list, .benefit-list {
+        grid-template-columns: 1fr;
+    }
+
+    .step, .feature, .benefit {
+        margin: 1rem 0;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    header button {
+        padding: 0.5rem 1rem;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links a {
+        margin: 0.5rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    header button {
+        padding: 0.3rem 0.8rem;
+    }
+
+    section {
+        padding: 1rem;
+    }
+}
