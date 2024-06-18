@@ -1,20 +1,19 @@
-/* Base Styles */
+@font-face {
+    font-family:'Merienda';
+    src: url(../fonts/Merienda-VariableFont_wght.ttf);
+}
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family:system-ui;
 }
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
 
 .navbar {
     background: #333;
     color: #fff;
-    padding: 3rem;
+    padding: 1.5rem 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,6 +23,57 @@ body {
     z-index: 1000;
     box-shadow: 1px 1px 5px #858383;
 }
+.navbar .toggle-btn{
+    color: #fff;
+    font-size: 2rem;
+    display: none;
+}
+
+/* dropdown menue*/
+.navbar .dropdown{
+    /* display: none; */
+    position: absolute;
+    right: 4rem;
+    top: 80px;
+    background: rgb(250, 134, 113);
+    width: 300px;
+    height:0;
+    text-align: center;
+    overflow: hidden;
+    padding: 0.8rem;
+    border-radius: 10px;
+    transition: height 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+}
+.navbar .dropdown.open{
+    height:210px;
+    opacity: 1;
+    /* display: block; */
+}
+
+.navbar .dropdown  li{
+    list-style: none;
+    padding: 0.4rem;
+}
+
+.navbar .dropdown  li a{
+    text-decoration: none;
+    color: #fff;
+}
+.navbar .dropdown  li a:hover{
+    color: #ccc;
+}
+
+.navbar .dropdown .start-btn{
+    padding: 8px 15px;
+    font-size: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #ff6347;
+    border-radius: 20px;
+}
+/*************************************************/
 
 .nav-container {
     display: flex;
@@ -33,7 +83,7 @@ body {
 }
 
 .nav-logo img {
-    max-height: 04px;
+    max-height: 60px;
 }
 
 .nav-links {
@@ -46,24 +96,27 @@ body {
     color: #fff;
     text-decoration: none;
     margin: 0 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    transition: 1s;
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    color: #fa8671;
+    scale: 1.4;
 }
 
 .nav-start button {
     background: #ff6347;
     color: #fff;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1rem;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    border-radius: 30px;
 }
 
 .nav-start button:hover {
-    background: #ff4500;
+    background: #fa8671;
 }
 
 /* Header */
@@ -83,12 +136,18 @@ header img {
 }
 
 header h1 {
-    margin: 0;
     font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
+header h2 {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
 header p {
     font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 header button {
@@ -99,11 +158,28 @@ header button {
     margin-top: 1rem;
     cursor: pointer;
     font-size: 1rem;
+    border-radius: 30px;
+}
+header button a{
+    text-decoration: none;
+    color: #fff;
+    
 }
 
 header button:hover {
-    background: #ff4500;
+    background: #fa8671;
 }
+/* animated sections **********************************/
+.animated-section{
+    opacity: 0;
+    transform: translatey(-100px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.animated-section.visible {
+opacity: 1;
+transform: translatey(0);
+}
+/********************************************************/
 
 section {
     padding: 2rem;
@@ -133,20 +209,7 @@ h2 {
     width: 250px;
 }
 
-blockquote {
-    border-left: 5px solid #ff6347;
-    padding-left: 1rem;
-    font-style: italic;
-    color: #555;
-}
-
-blockquote cite {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-}
-
-#product-demo video {
+ #product-demo video{
     width: 50%;
     display: block;
     margin: 0 auto 1rem;
@@ -164,9 +227,10 @@ blockquote cite {
     color: #ff6347;
     border: none;
     padding: 1rem 2rem;
-    margin: 0.5rem;
+    margin-top: 1.5rem;
     cursor: pointer;
     font-size: 1rem;
+    border-radius: 30px;
 }
 
 #cta button:hover {
@@ -195,11 +259,12 @@ form button {
     border: none;
     padding: 1rem;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    border-radius: 30px;
 }
 
 form button:hover {
-    background: #ff4500;
+    background: #fa8671;
 }
 
 footer {
@@ -262,6 +327,21 @@ footer {
     .nav-links a {
         margin: 0.5rem 0;
     }
+
+   
+    .navbar .nav-container .nav-links,.navbar .nav-container .nav-start {
+            display: none;
+        }
+    .navbar .nav-container .toggle-btn{
+            display: block;
+        }
+
+    .step img,.step .step2,#product-demo video{
+            width: 80   %;
+            height: 300px;
+        } 
+       
+    
 }
 
 @media (max-width: 480px) {
@@ -280,4 +360,10 @@ footer {
     section {
         padding: 1rem;
     }
+    .step img,.step .step2,#product-demo video{
+        width: 95%;
+        height: 300px;
+    } 
+    
+    
 }
