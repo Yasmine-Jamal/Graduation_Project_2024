@@ -6,7 +6,6 @@
 }
 
 body {
-    /* margin: 0; */
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
@@ -15,7 +14,7 @@ body {
 .navbar {
     background: #333;
     color: #fff;
-    padding: 2rem;
+    padding: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +33,7 @@ body {
 }
 
 .nav-logo img {
-    max-height: 40px;
+    max-height: 04px;
 }
 
 .nav-links {
@@ -148,7 +147,7 @@ blockquote cite {
 }
 
 #product-demo video {
-    max-width: 100%;
+    width: 50%;
     display: block;
     margin: 0 auto 1rem;
 }
