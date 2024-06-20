@@ -63,11 +63,10 @@ a{
     border: none;
     align-items: center;
 }
-/* اختياري: تنسيق لأيقونة الرجوع */
 img {
-    width: 30px; /* تعديل الحجم حسب الحاجة */
+    width: 30px; 
     height: 30px;
-    cursor: pointer; /* تغيير المؤشر إلى يد للإشارة إلى أنها قابلة للنقر */
+    cursor: pointer; 
 }
 
 @media (max-width: 768px) {
