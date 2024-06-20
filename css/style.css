@@ -29,6 +29,7 @@
     display: none;
 }
 
+
 /* dropdown menue*/
 .navbar .dropdown{
     /* display: none; */
@@ -105,7 +106,7 @@
     scale: 1.4;
 }
 
-.nav-start button {
+.nav-start button ,.startNow{
     background: #ff6347;
     color: #fff;
     border: none;
@@ -113,6 +114,9 @@
     cursor: pointer;
     font-size: 1.1rem;
     border-radius: 30px;
+}
+.startNow{
+    text-decoration: none;
 }
 
 .nav-start button:hover {
@@ -338,8 +342,8 @@ footer {
         }
 
     .step img,.step .step2,#product-demo video{
-            width: 80   %;
-            height: 300px;
+            width: 80%;
+            height:300px;
         } 
        
     
