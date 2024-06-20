@@ -42,12 +42,17 @@ form {
     font-size: 18px;
     font-weight: 500;
 }
+#button{
+    color: #fff;
+    background-color: #598b40;
+    border: none;
+}
 a{
     color: #fff;
     text-decoration: none;
 }
 
-#input {
+.input {
     position: relative;
     display: block;
     height: calc(1em + 1rem);
@@ -58,7 +63,14 @@ a{
     border: none;
     align-items: center;
 }
-@media (min-width: 768px) {
+/* اختياري: تنسيق لأيقونة الرجوع */
+img {
+    width: 30px; /* تعديل الحجم حسب الحاجة */
+    height: 30px;
+    cursor: pointer; /* تغيير المؤشر إلى يد للإشارة إلى أنها قابلة للنقر */
+}
+
+@media (max-width: 768px) {
     form {
         width: 95%;
         /* margin: 0 auto; */

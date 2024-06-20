@@ -11,37 +11,33 @@
 
 <body>
     <div id="all">
-        <form action="">
-            <!-- <div id="in"> -->
-                <!-- <label for="id">ID : </label> -->
-                <!-- <input type="text" id="input" placeholder="ID"> -->
-            <!-- </div> -->
-            <!-- <div id="in"> -->
-                <!-- <label for="username">User Name : </label> -->
-                <!-- <input type="text" id="input" placeholder="User Name"> -->
-            <!-- </div> -->
+        <form action="" id="registrationForm">
             <div id="in">
                 <!-- <label for="fullname">Full Name : </label> -->
-                <input type="text" id="input" placeholder="Full Name">
+                <input type="text" class="input" id="fullName" placeholder="Full Name" required>
             </div>
             <div id="in">
                 <!-- <label for="age">Age : </label> -->
-                <input type="text" id="input" placeholder="Age">
+                <input type="text" class="input" id="age" placeholder="Age" required>
             </div>
             <div id="in">
                 <!-- <label for="email">E-mail : </label> -->
-                <input type="email" id="input" placeholder="E-mail">
+                <input type="email" class="input" id="email" placeholder="E-mail" required>
             </div>
             <div id="in">
                 <!-- <label for="pass">password : </label> -->
-                <input type="password" id="input" placeholder="Password">
+                <input type="password" class="input" id="password" placeholder="Password" required>
             </div>
             <div id="butt">
-                <a href="">Regester Now</a>
-                <!-- <input type="submit" value="Submit"> -->
+                <!-- <a href="">Regester Now</a> -->
+                <input type="submit" value="Regester Now" id="button">
+            </div>
+            <div>
+                <a href="#" onclick="goBack();"><img src="./images/back-icon.png" alt="Back"></a>
             </div>
         </form>
     </div>
+    <script src="./js/register.js"></script>
 </body>
 
 </html>
