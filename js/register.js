@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         } 
         else if (email.length<6||email.length>254) {
-            emailError.textContent = 'minimum length of email 6 and maximum 254';
+            emailError.textContent = 'minimum length of email 6';
             return false;
         }else if (!isValidEmail(email)) {
             emailError.textContent = 'Please enter a valid email address';
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
         else if (password.length<6||password.length>254) {
-            passwordError.textContent = 'minimum length of password 6 and maximum 254 ';
+            passwordError.textContent = 'minimum length of password 6 ';
             return false;
         }
         return true;
