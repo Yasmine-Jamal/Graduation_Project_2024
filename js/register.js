@@ -138,7 +138,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch((error) => {
                     // Handle errors
                     console.error('Error:', error.message);
-                    alert(error.message);
+                    // alert(error.message);
+                    document.getElementById('registrationError').textContent=error.message;
                 });
         }
     });
