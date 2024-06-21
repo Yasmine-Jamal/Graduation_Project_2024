@@ -78,5 +78,7 @@ img {
 span{
     color: red;
     font-size: 0.9rem;
+    display: block;
+    padding: 10px 0 0 0;
 }
 
