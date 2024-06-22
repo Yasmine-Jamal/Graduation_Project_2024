@@ -181,8 +181,13 @@ document.getElementById('authenticateButton').addEventListener('click', async ()
         console.log(data);
         toggleCameraButton.style.visibility = 'visible';
         uploadButton.style.visibility = 'visible';
-    } else {
-        alert('Authentication failed. Email not registered.');
+    }  else {
+        alert('Authentication failed. Email not registered. Please register first.');
+        window.location.href = '../../regestration.html';
+        // // Navigate to the register page after 10 seconds
+        // setTimeout(function() {
+        //     window.location.href = '../../regestration.html'; // Replace with your register page URL
+        // }, 1000); // 10000 milliseconds = 10 seconds
     }
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////
