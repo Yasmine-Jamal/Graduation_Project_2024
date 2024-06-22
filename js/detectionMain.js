@@ -165,4 +165,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Email api/////////////////////////////////////////////////////////////////////////////
+
+document.getElementById('authenticateButton').addEventListener('click', async () => {
+    const email = document.getElementById('emailInput').value;
+    const response = await fetch(`http://86.38.205.133:8087/api/driving-states/startDriving/${email}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        toggleCameraButton.style.visibility = 'visible';
+        uploadButton.style.visibility = 'visible';
+    }  else {
+        alert('Authentication failed. Email not registered. Please register first.');
+        window.location.href = '../../regestration.html';
+        // // Navigate to the register page after 10 seconds
+        // setTimeout(function() {
+        //     window.location.href = '../../regestration.html'; // Replace with your register page URL
+        // }, 1000); // 10000 milliseconds = 10 seconds
+    }
+});
+////////////////////////////////////////////////////////////////////////////////////////////////
 
