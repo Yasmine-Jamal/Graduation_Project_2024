@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fullNameError.textContent = 'Please enter your full name';
             return false;
         }
-        else if (fullName.length<3) {
+        else if (fullName.length < 3) {
             fullNameError.textContent = 'minimum length 3';
             return false;
         }
@@ -43,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
             ageError.textContent = 'Please enter a valid age';
             return false;
         }
-        else if (parseInt(age) <18) {
-        ageError.textContent = 'minimum age 18';
-        return false;
-    }
+        else if (parseInt(age) < 18) {
+            ageError.textContent = 'minimum age 18';
+            return false;
+        }
         return true;
     }
 
@@ -59,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (email === '') {
             emailError.textContent = 'Please enter your email';
             return false;
-        } 
-        else if (email.length<6||email.length>254) {
+        }
+        else if (email.length < 6 || email.length > 254) {
             emailError.textContent = 'minimum length of email 6';
             return false;
-        }else if (!isValidEmail(email)) {
+        } else if (!isValidEmail(email)) {
             emailError.textContent = 'Please enter a valid email address';
             return false;
         }
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
             passwordError.textContent = 'Please enter a password';
             return false;
         }
-        else if (password.length<6||password.length>254) {
+        else if (password.length < 6 || password.length > 254) {
             passwordError.textContent = 'minimum length of password 6 ';
             return false;
         }
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Handle successful registration response
                     console.log('Success:', data);
                     // Save email locally
-                    saveEmailLocally(data.email);
+                    // saveEmailLocally(data.email);
 
                     // Optionally, you can redirect to another page or show a success message
                     alert('Registration successful!');
@@ -193,54 +193,64 @@ document.addEventListener('DOMContentLoaded', function () {
 //     document.body.removeChild(a);
 //     URL.revokeObjectURL(a.href);
 // }
-function saveEmailLocally(email) {
-    const filename = 'registered_email.txt';
-    const emailContent = `Registered email: ${email}\n`;
+// 
+// 
+// function saveEmailLocally(email) {
+//     const filename = 'registered_email.txt';
+//     const emailContent = `Registered email: ${email}\n`;
 
-    // Read the existing content of the file
-    readFileContents(filename)
-        .then(existingContent => {
-            // Combine existing content with new email
-            const updatedContent = existingContent + emailContent;
+//     // Read the existing content of the file
+//     readFileContents(filename)
+//         .then(existingContent => {
+//             // Combine existing content with new email
+//             const updatedContent = existingContent + emailContent;
 
-            // Write the updated content back to the file
-            writeFileContents(filename, updatedContent);
-        })
-        .catch(error => {
-            console.error('Error reading file:', error);
-        });
-}
+//             // Write the updated content back to the file
+//             writeFileContents(filename, updatedContent);
+//         })
+//         .catch(error => {
+//             console.error('Error reading file:', error);
+//         });
+// }
 
-// Function to read file contents
-function readFileContents(filename) {
-    return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.onload = function(event) {
-            const content = event.target.result;
-            resolve(content);
-        };
-        fileReader.onerror = function(error) {
-            reject(error);
-        };
-        
-        // Read the file as text
-        fileReader.readAsText(new Blob([filename], { type: 'text/plain' }));
-    });
-}
+// // Function to read file contents
+// function readFileContents(filename) {
+//     return new Promise((resolve, reject) => {
+//         const fileReader = new FileReader();
+//         fileReader.onload = function(event) {
+//             const content = event.target.result;
+//             resolve(content);
+//         };
+//         fileReader.onerror = function(error) {
+//             reject(error);
+//         };
 
-// Function to write file contents
-function writeFileContents(filename, content) {
-    const blob = new Blob([content], { type: 'text/plain' });
+//         // Read the file as text
+//         fileReader.readAsText(new Blob([filename], { type: 'text/plain' }));
+//     });
+// }
 
-    // Create a link element
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
+// // Function to write file contents
+// function writeFileContents(filename, content) {
+//     const blob = new Blob([content], { type: 'text/plain' });
 
-    // Programmatically click the link to trigger the download
-    a.click();
+//     // Create a link element
+//     const a = document.createElement('a');
+//     a.href = URL.createObjectURL(blob);
+//     a.download = filename;
 
-    // Clean up resources
-    URL.revokeObjectURL(a.href);
-}
+//     // Programmatically click the link to trigger the download
+//     a.click();
+
+//     // Clean up resources
+//     URL.revokeObjectURL(a.href);
+// }
+// 
+// function saveEmailLocally(email) {
+//     var emailFile = new File("E:\graduation project\savedEmails.txt");
+//     // emailFile.writeln(email);
+//     // emailFile.close();
+//     var output = writeFile(emailFile, null, email);
+//     console.log("The number of bytes written to file was: " + output);
+// }
 
