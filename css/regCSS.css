@@ -41,11 +41,13 @@ form {
     padding: 13px 30px;
     font-size: 18px;
     font-weight: 500;
+    cursor: pointer;
 }
 #button{
     color: #fff;
     background-color: #598b40;
     border: none;
+    cursor: pointer;
 }
 a{
     color: #fff;

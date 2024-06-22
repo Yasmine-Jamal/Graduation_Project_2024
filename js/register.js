@@ -1,3 +1,4 @@
+// import { setSessionItemwithExpiration } from "./saved.js";
 function goBack() {
     window.history.back();
 }
@@ -142,9 +143,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     // Handle successful registration response
                     console.log('Success:', data);
-                    // Save email locally
-                    // saveEmailLocally(data.email);
-
+                    // Clear session storage and save email with expiration
+                    localStorage.clear();
+                    setSessionItemwithExpiration('email', data.email, 12*60); // 12 Hour expiration
                     // Optionally, you can redirect to another page or show a success message
                     alert('Registration successful!');
                     // window.location.href = 'success.html'; // Redirect to success page
@@ -170,87 +171,3 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('passwordError').textContent = '';
     }
 });
-// Function to save email locally
-// function saveEmailLocally(email) {
-//     const filename = 'registered_email.txt';
-//     const emailContent = `Registered email: ${email}`;
-
-//     // Create a Blob object with the email content
-//     const blob = new Blob([emailContent], { type: 'text/plain' });
-
-//     // Create a link element
-//     const a = document.createElement('a');
-//     a.href = URL.createObjectURL(blob);
-//     a.download = filename;
-
-//     // Append the link to the body
-//     document.body.appendChild(a);
-
-//     // Programmatically click the link to trigger the download
-//     a.click();
-
-//     // Clean up resources
-//     document.body.removeChild(a);
-//     URL.revokeObjectURL(a.href);
-// }
-// 
-// 
-// function saveEmailLocally(email) {
-//     const filename = 'registered_email.txt';
-//     const emailContent = `Registered email: ${email}\n`;
-
-//     // Read the existing content of the file
-//     readFileContents(filename)
-//         .then(existingContent => {
-//             // Combine existing content with new email
-//             const updatedContent = existingContent + emailContent;
-
-//             // Write the updated content back to the file
-//             writeFileContents(filename, updatedContent);
-//         })
-//         .catch(error => {
-//             console.error('Error reading file:', error);
-//         });
-// }
-
-// // Function to read file contents
-// function readFileContents(filename) {
-//     return new Promise((resolve, reject) => {
-//         const fileReader = new FileReader();
-//         fileReader.onload = function(event) {
-//             const content = event.target.result;
-//             resolve(content);
-//         };
-//         fileReader.onerror = function(error) {
-//             reject(error);
-//         };
-
-//         // Read the file as text
-//         fileReader.readAsText(new Blob([filename], { type: 'text/plain' }));
-//     });
-// }
-
-// // Function to write file contents
-// function writeFileContents(filename, content) {
-//     const blob = new Blob([content], { type: 'text/plain' });
-
-//     // Create a link element
-//     const a = document.createElement('a');
-//     a.href = URL.createObjectURL(blob);
-//     a.download = filename;
-
-//     // Programmatically click the link to trigger the download
-//     a.click();
-
-//     // Clean up resources
-//     URL.revokeObjectURL(a.href);
-// }
-// 
-// function saveEmailLocally(email) {
-//     var emailFile = new File("E:\graduation project\savedEmails.txt");
-//     // emailFile.writeln(email);
-//     // emailFile.close();
-//     var output = writeFile(emailFile, null, email);
-//     console.log("The number of bytes written to file was: " + output);
-// }
-

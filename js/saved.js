@@ -5,20 +5,38 @@ function setSessionItemwithExpiration(key, value, expirationInMinuts){
         value: value,
         expiration: expirationTime
     };
-    sessionStorage.setItem(key, JSON.stringify(item));
+    localStorage.setItem(key, JSON.stringify(item));
 }
 
 function getSessionItemwithExpiration(key){
-    const itemStr = sessionStorage.getItem(key);
+    const itemStr = localStorage.getItem(key);
     if(!itemStr){
         return null;
     }
     const item = JSON.parse(itemStr);
     const now = new Date();
     if(now.getTime()>item.expiration){
-        sessionStorage.removeItem(key);
+        localStorage.removeItem(key);
         return null;
     }
     return item.value;
 }
+function cleanupExpiredSessionItems() {
+    const now = new Date().getTime();
 
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const itemStr = localStorage.getItem(key);
+
+        if (itemStr) {
+            const item = JSON.parse(itemStr);
+            if (item.expiration && now > item.expiration) {
+                localStorage.removeItem(key);
+                i--; // Adjust the index after removal
+            }
+        }
+    }
+}
+
+// Call cleanupExpiredSessionItems at the appropriate time, e.g., on page load
+document.addEventListener('DOMContentLoaded', cleanupExpiredSessionItems);
