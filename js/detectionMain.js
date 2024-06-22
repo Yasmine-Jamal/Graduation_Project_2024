@@ -179,7 +179,8 @@ document.getElementById('authenticateButton').addEventListener('click', async ()
     if (response.ok) {
         const data = await response.json();
         console.log(data);
-        document.getElementById('toggleCameraButton').style.visibility = 'visible';
+        toggleCameraButton.style.visibility = 'visible';
+        uploadButton.style.visibility = 'visible';
     } else {
         alert('Authentication failed. Email not registered.');
     }
