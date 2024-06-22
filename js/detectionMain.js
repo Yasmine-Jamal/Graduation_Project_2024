@@ -165,4 +165,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Email api/////////////////////////////////////////////////////////////////////////////
+
+document.getElementById('authenticateButton').addEventListener('click', async () => {
+    const email = document.getElementById('emailInput').value;
+    const response = await fetch(`http://86.38.205.133:8087/api/driving-states/startDriving/${email}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        document.getElementById('toggleCameraButton').style.visibility = 'visible';
+    } else {
+        alert('Authentication failed. Email not registered.');
+    }
+});
+////////////////////////////////////////////////////////////////////////////////////////////////
 

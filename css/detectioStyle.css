@@ -49,6 +49,9 @@ video, img {
     color: white;
     font-size: 20px;
 }
-/* .result {
-    margin-top: 20px;
-} */
+#emailInput{
+    border: 2px solid #10440E;
+    width: 300px;
+    border-radius: 6px;
+    padding: 9px 7px;
+}
