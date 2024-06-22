@@ -55,3 +55,10 @@ video, img {
     border-radius: 6px;
     padding: 9px 7px;
 }
+
+@media(max-width:480px){
+    button{
+        width: 40%;
+        margin: 10px 5px;
+    }
+}
