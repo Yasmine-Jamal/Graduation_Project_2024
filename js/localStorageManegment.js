@@ -6,6 +6,8 @@ function setSessionItemwithExpiration(key, value, expirationInMinuts){
         value: value,
         expiration: expirationTime
     };
+    // Clear session storage and save email with expiration
+    localStorage.clear();
     localStorage.setItem(key, JSON.stringify(item));
 }
 
@@ -48,7 +50,7 @@ function checkEmail() {
         console.log('Email found and refreshed:', email);
     } else {
         // If email does not exist or is expired, redirect to login page
-        window.location.href = 'login.html'; // Replace with your login page URL
+        window.location = '../login.html'; // Replace with your login page URL
     }
 }
 
