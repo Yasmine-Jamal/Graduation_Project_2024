@@ -1,3 +1,4 @@
+
 function setSessionItemwithExpiration(key, value, expirationInMinuts){
     const now = new Date();
     const expirationTime = now.getTime() + expirationInMinuts*60000;
@@ -37,6 +38,20 @@ function cleanupExpiredSessionItems() {
         }
     }
 }
+
+function checkEmail() {
+    const email = getSessionItemwithExpiration('email');
+    
+    if (email) {
+        // If email exists and is not expired, refresh the expiration time for another 12 hours
+        setSessionItemwithExpiration('email', email, 12*60); // 12 hours in milliseconds
+        console.log('Email found and refreshed:', email);
+    } else {
+        // If email does not exist or is expired, redirect to login page
+        window.location.href = 'login.html'; // Replace with your login page URL
+    }
+}
+
 
 // Call cleanupExpiredSessionItems at the appropriate time, e.g., on page load
 document.addEventListener('DOMContentLoaded', cleanupExpiredSessionItems);
