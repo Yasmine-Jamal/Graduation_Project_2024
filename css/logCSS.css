@@ -32,10 +32,13 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 8px;
+    padding: 8px 0;
     font-size: 16px;
     border-radius: 10px;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-group button {
@@ -57,4 +60,10 @@ body {
     color: red;
     margin-top: 10px;
     text-align: center;
+}
+span{
+    color: red;
+    font-size: 0.9rem;
+    display: block;
+    padding: 10px 0 0 0;
 }
