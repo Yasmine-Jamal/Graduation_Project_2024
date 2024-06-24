@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     // Handle successful registration response
                     console.log('Success:', data);
-                    // Clear session storage and save email with expiration
+                    // Clear session storage and save email and name with expiration
                     localStorage.clear();
                     setSessionItemwithExpiration('email', data.email, 12 * 60); // 12 Hour expiration
 
