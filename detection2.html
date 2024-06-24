@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drowsy Driver Detection</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/detectioStyle.css">
+</head>
+<body>
+    <header>
+        <h1>Drowsy Driver Detection</h1>
+    </header>
+    <main>
+        <div>
+            <video id="videoElement" autoplay playsinline></video>
+            <img id="imagePreview" style="display:none;" />
+        </div>
+        <button id="toggleCameraButton"  >Open Camera</button>
+        <button id="toggleDrivingButton" disabled> Start driving</button>
+        <input type="file" id="fileInput" style="display:none" accept="image/*">
+        <button id="uploadButton" >Upload Image</button>
+        <button id="alertButton" class="alert" >Alert</button>
+        <button id="resetButton" class="reset" >Reset</button>
+    </main>
+    <script src="js/localStorageManegment.js"></script>
+    <script src="js/detectionMain.js"></script>
+    
+</body>
+</html>
+
+
