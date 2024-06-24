@@ -1,4 +1,6 @@
 
+var isRegOrLog = false;
+
 function setSessionItemwithExpiration(key, value, expirationInMinuts){
     const now = new Date();
     const expirationTime = now.getTime() + expirationInMinuts*60000;

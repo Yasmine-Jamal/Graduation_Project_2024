@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Clear form after successful registration (if needed)
                     document.getElementById('loginForm').reset();
                     clearErrors();
-                    window.location = './/index.html';
+                    // window.location = './/index.html';
                 })
                 .catch((error) => {
                     // Handle errors

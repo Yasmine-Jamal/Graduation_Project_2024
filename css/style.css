@@ -36,7 +36,7 @@
     position: absolute;
     right: 4rem;
     top: 80px;
-    background: rgb(250, 134, 113);
+    background: #598b40;
     width: 300px;
     height:0;
     text-align: center;
@@ -71,8 +71,18 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: #ff6347;
+    background: #598b40;
     border-radius: 20px;
+}
+
+.navbar .dropdown.open .nav-account {
+    display: flex; /* Show the account section in the dropdown menu on smaller screens */
+    margin-bottom: 0.5rem;
+}
+
+.navbar .dropdown .nav-account p {
+    color: #fff;
+    margin-top: 0.5rem;
 }
 /*************************************************/
 
@@ -102,12 +112,12 @@
 }
 
 .nav-links a:hover {
-    color: #fa8671;
+    color: #598b40;
     scale: 1.4;
 }
 
 .nav-start button ,.startNow{
-    background: #ff6347;
+    background: #598b40;
     color: #fff;
     border: none;
     padding: 0.7rem 1rem;
@@ -120,7 +130,7 @@
 }
 
 .nav-start button:hover {
-    background: #fa8671;
+    background: #598b40;
 }
 .nav-account {
     display: flex;
@@ -166,7 +176,7 @@ header h2 {
     font-size: 1.7rem;
     font-weight: 500;
     margin-bottom: 10px;
-    color: #fa8671;
+    color: #598b40;
 }
 header p {
     font-size: 1.2rem;
@@ -174,7 +184,7 @@ header p {
 }
 
 header button {
-    background: #ff6347;
+    background: #598b40;
     color: #fff;
     border: none;
     padding: 1rem 2rem;
@@ -190,7 +200,7 @@ header button a{
 }
 
 header button:hover {
-    background: #fa8671;
+    background: #598b40;
 }
 /* animated sections **********************************/
 .animated-section{
@@ -241,13 +251,13 @@ h2 {
 #cta {
     text-align: center;
     padding: 2rem;
-    background: #ff6347;
+    background: #598b40;
     color: #fff;
 }
 
 #cta button {
     background: #fff;
-    color: #ff6347;
+    color: #598b40;
     border: none;
     padding: 1rem 2rem;
     margin-top: 1.5rem;
@@ -277,7 +287,7 @@ form input, form textarea {
 }
 
 form button {
-    background: #ff6347;
+    background: #598b40;
     color: #fff;
     border: none;
     padding: 1rem;
@@ -287,7 +297,7 @@ form button {
 }
 
 form button:hover {
-    background: #fa8671;
+    background: #598b40;
 }
 
 footer {
