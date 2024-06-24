@@ -1,5 +1,5 @@
 
-var isRegOrLog = false;
+let isRegOrLog = false;
 
 function setSessionItemwithExpiration(key, value, expirationInMinuts){
     const now = new Date();
@@ -8,8 +8,8 @@ function setSessionItemwithExpiration(key, value, expirationInMinuts){
         value: value,
         expiration: expirationTime
     };
-    // Clear session storage and save email with expiration
-    localStorage.clear();
+    // // Clear session storage and save email with expiration
+    // localStorage.clear();
     localStorage.setItem(key, JSON.stringify(item));
 }
 
