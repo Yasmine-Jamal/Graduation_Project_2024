@@ -12,6 +12,7 @@ bars_btn.onclick=function(){
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    renameAccount();
     const sections = document.querySelectorAll('.animated-section');
 
     const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -27,3 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionObserver.observe(section);
     });
 });
+
+function renameAccount (){
+    const name = checkName();
+    if(name != null){
+        document.getElementById("acc").innerText = name;
+        return;
+    }
+    document.getElementById("acc").innerText = 'Account';
+}

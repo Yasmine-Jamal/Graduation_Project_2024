@@ -94,10 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log('Success:', data);
                     // Clear session storage and save email with expiration
                     localStorage.clear();
-                    setSessionItemwithExpiration('email', data.email, 0.5); // 12 Hour expiration
+                    setSessionItemwithExpiration('email', data.email, 12 * 60); // 12 Hour expiration
+
+                    setSessionItemwithExpiration('name', data.fullName.split(" ", 1), 12 * 60);
                     // Optionally, you can redirect to another page or show a success message
                     alert('login successful!');
                     // window.location.href = 'success.html'; // Redirect to success page
+
+                    // isRegOrLog = true;
+
+                    window.location.href = './/index.html'; // Redirect to success page
+                    document.getElementById("acc").innerText = localStorage.getItem('name');
 
                     // Clear form after successful registration (if needed)
                     document.getElementById('loginForm').reset();

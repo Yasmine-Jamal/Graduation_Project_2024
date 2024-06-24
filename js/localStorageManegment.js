@@ -1,6 +1,3 @@
-
-var isRegOrLog = false;
-
 function setSessionItemwithExpiration(key, value, expirationInMinuts){
     const now = new Date();
     const expirationTime = now.getTime() + expirationInMinuts*60000;
@@ -8,8 +5,8 @@ function setSessionItemwithExpiration(key, value, expirationInMinuts){
         value: value,
         expiration: expirationTime
     };
-    // Clear session storage and save email with expiration
-    localStorage.clear();
+    // // Clear session storage and save email with expiration
+    // localStorage.clear();
     localStorage.setItem(key, JSON.stringify(item));
 }
 
@@ -56,6 +53,18 @@ function checkEmail() {
         // If email does not exist or is expired, redirect to login page
         window.location = '../login.html'; // Replace with your login page URL
     }
+}
+
+function checkName() {
+    const name = getSessionItemwithExpiration('name');
+    
+    if (name != null) {
+        // If email exists and is not expired, refresh the expiration time for another 12 hours
+        setSessionItemwithExpiration('name', name, 12*60); // 12 hours in milliseconds
+        console.log('Name found and refreshed:', name);
+
+    } 
+    return name;
 }
 
 

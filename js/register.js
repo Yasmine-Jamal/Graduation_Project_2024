@@ -143,12 +143,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     // Handle successful registration response
                     console.log('Success:', data);
-                    
-                    setSessionItemwithExpiration('email', data.email, 12*60); // 12 Hour expiration
-                    // setSessionItemwithExpiration('name', data.fullName.splint(" ")[0], 12*60);
+
+                    setSessionItemwithExpiration('email', data.email, 12 * 60); // 12 Hour expiration
+                    setSessionItemwithExpiration('name', data.fullName.split(" ", 1), 12 * 60);
                     // Optionally, you can redirect to another page or show a success message
                     alert('Registration successful!');
-                    // window.location.href = 'success.html'; // Redirect to success page
+                    isRegOrLog = true;
+                    window.location.href = './/index.html'; // Redirect to success page
+
+                    // // Clear session storage and save email with expiration
+                    // localStorage.clear();
 
                     // Clear form after successful registration (if needed)
                     document.getElementById('registrationForm').reset();
