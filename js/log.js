@@ -100,8 +100,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Optionally, you can redirect to another page or show a success message
                     alert('login successful!');
                     // window.location.href = 'success.html'; // Redirect to success page
-                    isRegOrLog = true;
+
+                    // isRegOrLog = true;
+
                     window.location.href = './/index.html'; // Redirect to success page
+                    document.getElementById("acc").innerText = localStorage.getItem('name');
 
                     // Clear form after successful registration (if needed)
                     document.getElementById('loginForm').reset();

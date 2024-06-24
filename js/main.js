@@ -1,12 +1,7 @@
 const bars_btn=document.querySelector('.toggle-btn');
 const bars_icon=document.querySelector('.toggle-btn i');
 const dropMenue=document.querySelector('.dropdown');
-// if(isRegOrLog){
-//     document.getElementById("acc").innerHTML = getSessionItemwithExpiration('name');
-// }
-// else{
-//     document.getElementById("acc").innerHTML = "Account";
-// }
+
 bars_btn.onclick=function(){
     dropMenue.classList.toggle('open');
     const isOpen=dropMenue.classList.contains('open')
@@ -17,6 +12,7 @@ bars_btn.onclick=function(){
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    renameAccount();
     const sections = document.querySelectorAll('.animated-section');
 
     const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -32,3 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionObserver.observe(section);
     });
 });
+
+function renameAccount (){
+    const name = checkName();
+    if(name != null){
+        document.getElementById("acc").innerText = name;
+        return;
+    }
+    document.getElementById("acc").innerText = 'Account';
+}
