@@ -1,51 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Add blur event listeners for input fields
-    // var fullNameInput = document.getElementById('fullName');
-    // var ageInput = document.getElementById('age');
     var emailInput = document.getElementById('email');
     var passwordInput = document.getElementById('password');
 
-    // fullNameInput.addEventListener('blur', validateFullName);
-    // ageInput.addEventListener('blur', validateAge);
     emailInput.addEventListener('blur', validateEmail);
     passwordInput.addEventListener('blur', validatePassword);
 
-    // Function to validate Full Name
-    // function validateFullName() {
-    //     var fullName = fullNameInput.value.trim();
-    //     var fullNameError = document.getElementById('fullNameError');
-    //     fullNameError.textContent = '';
-
-    //     if (fullName === '') {
-    //         fullNameError.textContent = 'Please enter your full name';
-    //         return false;
-    //     }
-    //     else if (fullName.length < 3) {
-    //         fullNameError.textContent = 'minimum length 3';
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
-    // Function to validate Age
-    // function validateAge() {
-    //     var age = ageInput.value.trim();
-    //     var ageError = document.getElementById('ageError');
-    //     ageError.textContent = '';
-
-    //     if (age === '') {
-    //         ageError.textContent = 'Please enter your age';
-    //         return false;
-    //     } else if (isNaN(age) || parseInt(age) <= 0) {
-    //         ageError.textContent = 'Please enter a valid age';
-    //         return false;
-    //     }
-    //     else if (parseInt(age) < 18) {
-    //         ageError.textContent = 'minimum age 18';
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     // Function to validate Email
     function validateEmail() {
@@ -98,24 +57,18 @@ document.addEventListener('DOMContentLoaded', function () {
         clearErrors();
 
         // Validate form fields
-        // var isFullNameValid = validateFullName();
-        // var isAgeValid = validateAge();
         var isEmailValid = validateEmail();
         var isPasswordValid = validatePassword();
 
         // Check if all fields are valid before proceeding
         if (isEmailValid && isPasswordValid) {
             // Get form values
-            // var fullName = fullNameInput.value.trim();
-            // var age = ageInput.value.trim();
             var email = emailInput.value.trim();
             var password = passwordInput.value;
 
             // Construct JSON object for the POST request
             var data = {
-                // fullName: fullName,
                 email: email,
-                // age: parseInt(age), // Convert age to integer
                 password: password
             };
 
@@ -149,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Clear form after successful registration (if needed)
                     document.getElementById('loginForm').reset();
                     clearErrors();
+                    window.location = './/index.html';
                 })
                 .catch((error) => {
                     // Handle errors
@@ -161,8 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to clear all error messages
     function clearErrors() {
-        // document.getElementById('fullNameError').textContent = '';
-        // document.getElementById('ageError').textContent = '';
         document.getElementById('emailError').textContent = '';
         document.getElementById('passwordError').textContent = '';
     }

@@ -52,18 +52,14 @@ body {
     font-size: 16px;
 }
 
-/* .form-group button:hover {
-    background-color: #0056b3;
-} */
-
-.error-message {
-    color: red;
-    margin-top: 10px;
-    text-align: center;
-}
 span{
     color: red;
     font-size: 0.9rem;
     display: block;
     padding: 10px 0 0 0;
+}
+#Toreg{
+    color: #000;
+    font-size: 0.9rem;
+    padding: 0 0 0 15%;
 }

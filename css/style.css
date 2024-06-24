@@ -122,7 +122,25 @@
 .nav-start button:hover {
     background: #fa8671;
 }
+.nav-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1rem;
+}
 
+.account-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-account p {
+    color: #fff;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
 /* Header */
 header {
     background: #333;
@@ -296,6 +314,9 @@ footer {
 
     form label, form input, form textarea, form button {
         width: 100%;
+    }
+    .nav-account {
+        display: none; /* Hide the account section on smaller screens */
     }
 }
 

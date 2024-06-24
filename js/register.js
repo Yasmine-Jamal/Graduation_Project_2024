@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log('Success:', data);
                     
                     setSessionItemwithExpiration('email', data.email, 12*60); // 12 Hour expiration
+                    setSessionItemwithExpiration('name', data.fullName.splint(" ")[0], 12*60);
                     // Optionally, you can redirect to another page or show a success message
                     alert('Registration successful!');
                     // window.location.href = 'success.html'; // Redirect to success page
