@@ -13,10 +13,11 @@ function setSessionItemwithExpiration(key, value, expirationInMinuts){
 
 function getSessionItemwithExpiration(key){
     const itemStr = localStorage.getItem(key);
-    if(!itemStr){
+    if(itemStr == null){
         return null;
     }
-    const item = JSON.parse(itemStr);
+    console.log(itemStr);
+    const item = JSON.parse("'" + itemStr + "'");
     const now = new Date();
     if(now.getTime()>item.expiration){
         localStorage.removeItem(key);
@@ -32,7 +33,7 @@ function cleanupExpiredSessionItems() {
         const itemStr = localStorage.getItem(key);
 
         if (itemStr) {
-            const item = JSON.parse(itemStr);
+            const item = JSON.parse("'" + itemStr + "'");
             if (item.expiration && now > item.expiration) {
                 localStorage.removeItem(key);
                 i--; // Adjust the index after removal
@@ -41,13 +42,14 @@ function cleanupExpiredSessionItems() {
     }
 }
 
+// const email = getSessionItemwithExpiration('email');
 function checkEmail() {
     const email = getSessionItemwithExpiration('email');
-    
-    if (email) {
+    if (email != null) {
         // If email exists and is not expired, refresh the expiration time for another 12 hours
         setSessionItemwithExpiration('email', email, 12*60); // 12 hours in milliseconds
         console.log('Email found and refreshed:', email);
+        return email;
     } else {
         // If email does not exist or is expired, redirect to login page
         window.location = '../login.html'; // Replace with your login page URL
