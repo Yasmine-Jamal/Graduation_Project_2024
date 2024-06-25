@@ -1,3 +1,4 @@
+
 function setSessionItemwithExpiration(key, value, expirationInMinuts){
     const now = new Date();
     const expirationTime = now.getTime() + expirationInMinuts*60000;
@@ -16,7 +17,7 @@ function getSessionItemwithExpiration(key){
         return null;
     }
     console.log(itemStr);
-    const item = JSON.parse("'" + itemStr + "'");
+    const item = JSON.parse( itemStr );
     const now = new Date();
     if(now.getTime()>item.expiration){
         localStorage.removeItem(key);
@@ -32,7 +33,7 @@ function cleanupExpiredSessionItems() {
         const itemStr = localStorage.getItem(key);
 
         if (itemStr) {
-            const item = JSON.parse("'" + itemStr + "'");
+            const item = JSON.parse(itemStr);
             if (item.expiration && now > item.expiration) {
                 localStorage.removeItem(key);
                 i--; // Adjust the index after removal
@@ -44,6 +45,7 @@ function cleanupExpiredSessionItems() {
 // const email = getSessionItemwithExpiration('email');
 function checkEmail() {
     const email = getSessionItemwithExpiration('email');
+    console.log(email);
     if (email != null) {
         // If email exists and is not expired, refresh the expiration time for another 12 hours
         setSessionItemwithExpiration('email', email, 12*60); // 12 hours in milliseconds

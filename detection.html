@@ -8,18 +8,23 @@
 </head>
 <body>
     
-    <h1>Drowsy Driver Detector</h1>
+    <header>
+        <h1>Drowsy Driver Detection</h1>
+    </header>
+    <main>
+        <div>
+            <video id="video" autoplay playsinline></video>
+            <img id="imagePreview" style="display:none;" />
+        </div>
     <button id="openCamera">Open Camera</button>
     <button id="startDriving" disabled>Start Driving</button>
     <button id="endDriving" disabled>End Driving</button>
-    <video id="video" width="640" height="480" autoplay></video>
     <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
     <input type="file" id="fileInput" style="display:none" accept="image/*">
     <button id="uploadButton" >Upload Image</button>
     <button id="alertButton" class="alert" >Alert</button>
     <button id="resetButton" class="reset" >Reset</button>
-    <div id="alert">Drowsiness Detected! Please wake up!</div>
-
+    </main>
     <script src="js/localStorageManegment.js"></script>
     <script src="js/detection.js"></script>
 </body>
