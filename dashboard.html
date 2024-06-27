@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard page</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href=".//css/dash.css">
 </head>
+
 <body>
-    <h1 style="text-align: center;">This page is under construction</h1>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <table class="trips">
+            <thead>
+                <tr>
+                    <td><span class="start">Start time </span></td>
+                    <td><span class="end">End time </span></td>
+                    <td><span class="details">Drowsy state </span></td>
+                </tr>
+            </thead>
+            <tbody id="tripsTableBody">
+
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="containerInfo">
+        <!-- <button id="toggleButton">Show Table</button> -->
+        <table class="tripInfo">
+            <thead id="tableHead">
+                <td><span class="startTime">Start time </span></td>
+                <td><span class="endTime">End time </span></td>
+                <td><span class="duration">Duration </span></td>
+                <td><span class="degree">State degree </span></td>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script src=".//js/dash.js"></script>
+    <script src=".//js/localStorageManegment.js"></script>
+
 </body>
+
 </html>

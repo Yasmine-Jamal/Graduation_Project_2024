@@ -1,0 +1,87 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+}
+
+.container,
+.containerInfo {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.containerInfo {
+    display: none;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.trips,
+.tripInfo {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.trips tr:nth-child(even),
+.tripInfo tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.trips td,
+.tripInfo td {
+    padding: 10px;
+}
+
+.trips tr td {
+    font-weight: bold;
+    color: #666;
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    align-content: center;
+}
+
+.tripInfo tr td {
+    font-weight: bold;
+    color: #666;
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    align-content: center;
+}
+
+.start,
+.end,
+.details,
+.startTime,
+.endTime,
+.duration,
+.degree {
+    display: block;
+    text-align: center;
+    /* لتوسيط النص في العناصر المحددة */
+}
+
+tr td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
