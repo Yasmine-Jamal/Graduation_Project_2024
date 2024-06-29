@@ -148,8 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     setSessionItemwithExpiration('email', data.email, 12 * 60); // 12 Hour expiration
                     setSessionItemwithExpiration('name', data.fullName.split(" ", 1), 12 * 60);
                     // Optionally, you can redirect to another page or show a success message
-                    alert('Registration successful!');
-                    isRegOrLog = true;
                     window.location.href = './/index.html'; // Redirect to success page
 
                     
@@ -161,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch((error) => {
                     // Handle errors
                     console.error('Error:', error.message);
-                    // alert(error.message);
                     document.getElementById('registrationError').textContent = error.message;
                 });
         }

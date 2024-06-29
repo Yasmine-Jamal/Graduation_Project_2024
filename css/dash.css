@@ -39,7 +39,9 @@ h1 {
     border-collapse: collapse;
     margin-top: 20px;
 }
-
+thead{
+    color: #205e04;
+}
 .trips tr:nth-child(even),
 .tripInfo tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -48,40 +50,52 @@ h1 {
 .trips td,
 .tripInfo td {
     padding: 10px;
-}
-
-.trips tr td {
+    text-align: center;
     font-weight: bold;
-    color: #666;
-    display: inline-block;
-    width: 200px;
-    text-align: center;
-    align-content: center;
 }
 
-.tripInfo tr td {
-    font-weight: bold;
-    color: #666;
-    display: inline-block;
-    width: 200px;
-    text-align: center;
-    align-content: center;
+/* Responsive styles */
+@media (max-width: 600px) {
+    .trips thead,
+    .tripInfo thead {
+        display: none;
+    }
+
+    .trips tr,
+    .tripInfo tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .trips td,
+    .tripInfo td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+    }
+
+    .trips td:last-child,
+    .tripInfo td:last-child {
+        border-bottom: 0;
+    }
+
+    .trips td::before,
+    .tripInfo td::before {
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: left;
+        font-weight: bold;
+        padding-right: 10px;
+        color: #205e04;
+    }
 }
 
-.start,
-.end,
-.details,
-.startTime,
-.endTime,
-.duration,
-.degree {
-    display: block;
-    text-align: center;
-    /* لتوسيط النص في العناصر المحددة */
-}
 
-tr td {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+

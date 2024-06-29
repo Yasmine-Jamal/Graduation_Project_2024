@@ -98,10 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     setSessionItemwithExpiration('name', data.fullName.split(" ", 1), 12 * 60);
                     // Optionally, you can redirect to another page or show a success message
-                    alert('login successful!');
-                    // window.location.href = 'success.html'; // Redirect to success page
-
-                    // isRegOrLog = true;
 
                     window.location.href = './/index.html'; // Redirect to success page
                     document.getElementById("acc").innerText = localStorage.getItem('name');
@@ -114,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch((error) => {
                     // Handle errors
                     console.error('Error:', error.message);
-                    // alert(error.message);
                     document.getElementById('loginError').textContent = error.message;
                 });
         }

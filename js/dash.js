@@ -7,12 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function handleButtonClick(tripId) {
-        // alert(tripId);
         fetchDetails(tripId);
-        // Add more logic here for button click if needed
     }
 
-    //Function to fetch details 
     // Function to fetch details
     async function fetchDetails(tripId) {
         fetch(`http://86.38.205.133:8087/api/drowsy-state-details/${tripId}`)
@@ -65,10 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(trip.startTime).toLocaleString()}</td>
-                        <td>${new Date(trip.endTime).toLocaleString()}</td>
-                        <td>${strDuration} </td>
-                        <td style = "background-color: ${colore}; color: #fff; border-radius: 25px; margin: 8px 0">${trip.stateDegree}</td>
+                        <td data-label="Start time">${new Date(trip.startTime).toLocaleString()}</td>
+                        <td data-label="End time">${new Date(trip.endTime).toLocaleString()}</td>
+                        <td data-label="Duration">${strDuration} </td>
+                        <td data-label="State degree"><span style = "background-color: ${colore}; color: #fff; border-radius: 25px; display: inline-block; width: 100%; padding:10px 0; font-size: 0.8rem;" >${trip.stateDegree}</span></td>
                     `;
                     tableBody.appendChild(row);
                     
@@ -77,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.querySelector('.containerInfo').style.display = "block";
             })
             .catch((error) => {
-                // document.querySelector('.containerInfo').style.display = "block";
                 // Handle errors
                 console.error('Error:', error.message);
                 alert(error.message);
@@ -105,9 +101,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.forEach(trip => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(trip.startDate).toLocaleString()}</td>
-                        <td>${new Date(trip.endDate).toLocaleString()}</td>
-                        <td><button class="action-button" data-trip-id="${trip.drivingStateId}">Show details</button></td>
+                        <td data-label="Start time">${new Date(trip.startDate).toLocaleString()}</td>
+                        <td data-label="End time">${new Date(trip.endDate).toLocaleString()}</td>
+                        <td data-label="Drowsy state"><button class="action-button" data-trip-id="${trip.drivingStateId}">Show details</button></td>
                     `;
                     tripsTableBody.appendChild(row);
                 });
