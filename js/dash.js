@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function handleButtonClick(tripId) {
+        document.getElementById("noalert").style. visibility= "hidden";
         fetchDetails(tripId);
     }
 
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     var real = parseInt(duration / 60);
                     remain = duration - (real * 60);
                     if (remain > 0) {
-                        strDuration = real + " Min " + remain + " Sec";
+                        strDuration = real + " Min " + remain.toFixed(1) + " Sec";
                     }
                     else {
                         strDuration = real + " Min ";
@@ -67,14 +68,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     tableBody.appendChild(row);
 
                 });
+                
 
                 document.querySelector('.containerInfo').style.display = "block";
             })
             .catch((error) => {
                 // Handle errors
                 if(error.message==""){
+                    document.querySelector('.containerInfo').style.display = "none";
                     console.error('Error: there is no alerts for this trip');
-                    alert('Error: there is no alerts for this trip');
+                    document.getElementById("noalert").textContent="there is no alerts for this trip";
+                    document.getElementById("noalert").style. visibility= "visible";
+                    // document.getElementById("noalert").style. display= "block"
+                    // document.getElementById("noalert").style.color = "red";
+                    // alert('Error: there is no alerts for this trip');
                 }
                 else {
                     console.error('Error: '+error.message);
@@ -107,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     row.innerHTML = `
                         <td data-label="Start time">${new Date(trip.startDate).toLocaleString()}</td>
                         <td data-label="End time">${new Date(trip.endDate).toLocaleString()}</td>
-                        <td data-label="Drowsy state"><button  class="action-button" data-trip-id="${trip.drivingStateId}"><a href='#info' style ="display: inline-block; width: 100%; text-decoration: none; color: #fff;"> Show Details</a></button></td>
+                        <td data-label="Drowsy state"><button  class="action-button" onclick="location.href='#noalert'" data-trip-id="${trip.drivingStateId}"> Show Details</button></td>
                     `;
                     tripsTableBody.appendChild(row);
                 });
