@@ -30,34 +30,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.forEach(trip => {
                     var duration = (new Date(trip.endTime) - new Date(trip.startTime)) / 60000 * 60;
                     var strDuration;
-                    if (duration >= 60) {
-                        var real = parseInt(duration / 60);
-                        remain = duration - (real * 60);
-                        if (remain > 0) {
-                            strDuration = real + " Min " + remain + " Sec";
-                        }
-                        else {
-                            strDuration = real + " Min ";
-                        }
 
+                    var real = parseInt(duration / 60);
+                    remain = duration - (real * 60);
+                    if (remain > 0) {
+                        strDuration = real + " Min " + remain + " Sec";
                     }
                     else {
-                        strDuration = duration + " Sec"
+                        strDuration = real + " Min ";
                     }
+
+
                     var colore;
-                    if (trip.stateDegree=="ALERT") {
+                    if (trip.stateDegree == "ALERT") {
                         colore = "green";
                     }
-                    else if (trip.stateDegree=="SLIGHTLY_DROWSY") {
+                    else if (trip.stateDegree == "SLIGHTLY_DROWSY") {
                         colore = "#74a11a";
                     }
-                    else if (trip.stateDegree=="MODERATELY_DROWSY") {
+                    else if (trip.stateDegree == "MODERATELY_DROWSY") {
                         colore = "#da5";
                     }
-                    else if (trip.stateDegree=="VERY_DROWSY") {
+                    else if (trip.stateDegree == "VERY_DROWSY") {
                         colore = "#e75";
                     }
-                    else if (trip.stateDegree=="EXTREMELY_DROWSY") {
+                    else if (trip.stateDegree == "EXTREMELY_DROWSY") {
                         colore = "#d33131";
                     }
                     const row = document.createElement('tr');
@@ -68,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td data-label="State degree"><span style = "background-color: ${colore}; color: #fff; border-radius: 25px; display: inline-block; width: 100%; padding:10px 0; font-size: 0.8rem;" >${trip.stateDegree}</span></td>
                     `;
                     tableBody.appendChild(row);
-                    
+
                 });
 
                 document.querySelector('.containerInfo').style.display = "block";
@@ -103,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     row.innerHTML = `
                         <td data-label="Start time">${new Date(trip.startDate).toLocaleString()}</td>
                         <td data-label="End time">${new Date(trip.endDate).toLocaleString()}</td>
-                        <td data-label="Drowsy state"><button class="action-button" data-trip-id="${trip.drivingStateId}">Show details</button></td>
+                        <td data-label="Drowsy state"><button  class="action-button" data-trip-id="${trip.drivingStateId}"><a href='#info' style ="display: inline-block; width: 100%; text-decoration: none; color: #fff;"> Show Details</a></button></td>
                     `;
                     tripsTableBody.appendChild(row);
                 });

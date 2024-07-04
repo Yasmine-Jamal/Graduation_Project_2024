@@ -5,19 +5,29 @@ const endDrivingButton = document.getElementById('endDriving');
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const fileInput = document.getElementById('fileInput');
-const uploadButton=document.getElementById('uploadButton')
+const uploadButton = document.getElementById('uploadButton')
 const imagePreview = document.getElementById('imagePreview');
 const alertButton = document.getElementById('alertButton');
 const resetButton = document.getElementById('resetButton');
 const context = canvas.getContext('2d');
 
-let captureInterval;
+var formData;
+var captureInterval;
 let isDriving = false;
 let isDrowsy = false;
-let alertStartTime;
-let isCameraOn= false;
+var alertStartTime;
+let isCameraOn = false;
+let aiResult;
+let alertSoundInterval;
+let stopCameraThread = false;
+let alertSound = new Audio('../voice/alert2.mp3');
 
 //Functions
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function openCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
@@ -30,59 +40,122 @@ function openCamera() {
         });
 }
 
-    function closeCamera() {
-        if (video.srcObject) {
-            video.srcObject.getTracks().forEach(track => track.stop());
-            video.srcObject = null;
-        }
-        clearInterval(captureInterval);
+function closeCamera() {
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
     }
+    clearInterval(captureInterval);
+}
 
-
-function startDriving() {
-     const email = checkEmail();
-     const name = checkName();
-     console.log("email : "+ email+" name: "+name)
-     if( email == null || name == null){
-       return;
-     }
+async function startDriving() {
+    const email = checkEmail();
+    const name = checkName();
+    console.log("email : " + email + " name: " + name)
+    if (email == null || name == null) {
+        return;
+    }
     // Start driving API call
-    console.log("Email : "+email)
+    console.log("Email : " + email)
     fetch(`http://86.38.205.133:8087/api/driving-states/startDriving/${email}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Start driving response:', data);
-        setSessionItemwithExpiration('drivingStateId',data.drivingStateId,12 * 60)
-        const drivingStateId = data.drivingStateId;
-        console.log('Extracted startDrivingId:', drivingStateId);
-    })
-    .catch(error => console.error('Error starting driving:', error));
+        .then(response => response.json())
+        .then(data => {
+            console.log('Start driving response:', data);
+            setSessionItemwithExpiration('drivingStateId', data.drivingStateId, 12 * 60)
+            const drivingStateId = data.drivingStateId;
+            console.log('Extracted startDrivingId:', drivingStateId);
+        })
+        .catch(error => console.error('Error starting driving:', error));
 
-        isDriving = true;
-        startDrivingButton.disabled = true;
-        endDrivingButton.disabled = false;
-        captureInterval = setInterval(captureFrame, 40); // Capture 25 frame every second
-    
+    isDriving = true;
+    startDrivingButton.disabled = true;
+    endDrivingButton.disabled = false;
+    stopCameraThread = false;
+    captureInterval = setInterval(captureFrame, 200); // Capture 10 frame every second
 }
 
 
+async function checkDrowsiness(aiResult) {
+    if (stopCameraThread) return;
+    if (aiResult === "drowsy" && !isDrowsy) {
+        if (alertStartTime == null) {
+            alertStartTime = formatDate(new Date());
+        }
+        isDrowsy = true;
+        while (isDrowsy) {
+            playAlertSound();
+            await sleep(1000)
+        }
+
+    } else if (aiResult === "awake" && isDrowsy) {
+        saveDrowsyState();
+        alertStartTime = null;
+        stopAlertSound();
+        isDrowsy = false;
+    }
+}
+
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
+}
+
+async function saveDrowsyState() {
+    const endTime = formatDate(new Date());
+    const drivingStateid = getSessionItemwithExpiration('drivingStateId');
+
+    const requestData = {
+        startTime: alertStartTime,
+        endTime: endTime,
+        drivingStateId: drivingStateid
+    };
+    console.log("alert start time : ",alertStartTime);
+    console.log("alert end time : ",endTime);
+
+
+    try {
+        const response = await fetch('http://86.38.205.133:8087/api/drowsy-state-details', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData)
+        });
+
+        const data = await response.json();
+        console.log('Drowsy state saved:', data);
+    } catch (error) {
+        console.error('Error saving drowsy state:', error);
+    }
+}
 
 async function endDriving() {
+    // captureThread.stop();
+    stopCameraThread = true;
     clearInterval(captureInterval);
     isDriving = false;
-    startDrivingButton.disabled = false;
+    startDrivingButton.disabled = true;
     endDrivingButton.disabled = true;
     video.pause();
     video.srcObject.getTracks().forEach(track => track.stop());
-
+    stopAlertSound();
+    
     try {
         // Assuming `driverStateId` was set when starting the driving session
-        const drivingStateId=getSessionItemwithExpiration('drivingStateId')
-        console.log("drivingStateId : "+drivingStateId);
+        const drivingStateId = getSessionItemwithExpiration('drivingStateId')
+        console.log("drivingStateId : " + drivingStateId);
         const response = await fetch(`http://86.38.205.133:8087/api/driving-states/endDriving/${drivingStateId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
@@ -90,10 +163,10 @@ async function endDriving() {
 
         const data = await response.json();
         console.log('End driving response:', data);
+        // clearInterval(captureInterval);
 
-        // Handle the response as needed
-        // For example, display a message to the user
         alert('Driving session ended successfully.');
+        // clearInterval(captureInterval);
     } catch (error) {
         console.error('Error ending driving:', error);
         alert('Failed to end the driving session. Please try again.');
@@ -101,88 +174,43 @@ async function endDriving() {
     localStorage.removeItem('drivingStateId')
 }
 
-
-function playAlertSound() {
-    const alertSound = new Audio('../voice/alert2.mp3'); 
+async function playAlertSound() {
+    alertSound.currentTime = 0;
     alertSound.play();
+
 }
+
+function stopAlertSound() {
+    alertSound.pause();
+    alertSound.currentTime = 0;
+}
+
 
 async function captureFrame() {
-    // Draw the current video frame onto the canvas
+    // console.log("stopCameraThread : " + stopCameraThread);
+    let date = new Date()
+    console.log(formatDate(date));
+    // console.log(" formData : ", formData);
+    if (stopCameraThread) return;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    playAlertSound()
-    // // Convert the canvas content to a Blob
-    // return new Promise((resolve, reject) => {
-    //     canvas.toBlob(async (blob) => {
-    //         try {
-    //             // Call the AI model API with the frame
-    //             const response = await fetch('http://127.0.0.1:5000/process', {
-    //                 method: 'POST',
-    //                 headers: { 'Content-Type': 'application/octet-stream' },
-    //                 body: blob
-    //             });
-                
-    //             // Parse the JSON response
-    //             const data = await response.json();
-    //             resolve(data); // Resolve the promise with the API response data
-    //         } catch (error) {
-    //             reject(error); // Reject the promise in case of an error
-    //         }
-    //     }, 'image/jpeg');
-    // });
-}
+    canvas.toBlob(async (blob) => {
+        try {
+            formData = new FormData();
+            formData.append('frame', blob, `frame-${Date.now()}.jpeg`);
 
+            const response = await fetch('http://127.0.0.1:5000/', {
+                method: 'POST',
+                body: formData
+            });
 
-/************************************************************************************************************* */
-// function captureFrame() {
-//     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-//     canvas.toBlob(blob => {
-//         // Call AI model API with the frame
-//         fetch('http://127.0.0.1:5000/process', {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/octet-stream' },
-//             body: blob
-//         }).then(response => response.json())
-//           .then(data => {
-//               if (data.drowsy) {
-//                   handleDrowsinessDetected();
-//               } else {
-//                   handleAlertEnd();
-//               }
-//           })
-//           .catch(error => console.error('Error detecting drowsiness:', error));
-//     }, 'image/jpeg');
-// }
+            const data = await response.json();
+            console.log(data.output)
+            checkDrowsiness(data.output)
 
-function handleDrowsinessDetected() {
-    if (!isDrowsy) {
-        isDrowsy = true;
-        alertStartTime = new Date();
-        playAlertSound()
-        // alertDiv.style.display = 'block';
-    }
-}
-
-function handleAlertEnd() {
-    if (isDrowsy) {
-        isDrowsy = false;
-        alertDiv.style.display = 'none';
-        const alertEndTime = new Date();
-        const driverId = localStorage.getItem('driverId');
-
-        // Store alert details API call
-        fetch('https://your-backend-api/store-alert-details', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                driverId: driverId,
-                alertStartTime: alertStartTime.toISOString(),
-                alertEndTime: alertEndTime.toISOString()
-            })
-        }).then(response => response.json())
-          .then(data => console.log('Store alert details response:', data))
-          .catch(error => console.error('Error storing alert details:', error));
-    }
+        } catch (error) {
+            console.error('Error sending frame to server:', error);
+        }
+    }, 'image/jpeg');
 }
 
 // Event Listeners
@@ -191,14 +219,14 @@ openCameraButton.addEventListener('click', () => {
     if (isCameraOn) {
         closeCamera();
         openCameraButton.textContent = 'Open Camera';
-        endDrivingButton.disabled=true;
-        startDrivingButton.disabled=true;
+        endDrivingButton.disabled = true;
+        startDrivingButton.disabled = true;
     } else {
         const userConfirmed = confirm('Do you want to open your camera?');
         if (userConfirmed) {
             openCamera();
             openCameraButton.textContent = 'Close Camera';
-            startDrivingButton.disabled=false;
+            startDrivingButton.disabled = false;
         } else {
             alert('Camera Access Denied Please enable camera access ');
         }
@@ -236,30 +264,80 @@ fileInput.addEventListener('change', () => {
     }
 });
 
-function processImage() {
-    // Hide the image preview
-    imagePreview.style.display = 'block';
-
-    // Simulate image processing using the AI model
-    setTimeout(() => {
-        const isDrowsy = Math.random() < 0.5; 
-        alertButton.textContent = isDrowsy ? 'Drowsy--> danger' : 'Safe';
-        alertButton.style.background = isDrowsy ? 'red' : 'green';
-        alertButton.style.color = '#fff';
-        // alertButton.style.display = 'block';
-        if (isDrowsy) {
-            playAlertSound();
-        } else {
-            alertButton.classList.remove('alert');
-            alertButton.classList.add('safe');
-            alertButton.textContent = 'Safe';
-        }
-        uploadButton.textContent = 'Upload Image';
-    }, 2000);
+function loadImage(event) {
+    imagePreview.src = URL.createObjectURL(event.target.files[0]);
 }
 
+async function processImage() {
+    // Hide the image preview
+    imagePreview.style.display = 'block';
+    // Convert imagePreview to a canvas and then to a blob
+    const image = new Image();
+    image.src = imagePreview.src;
 
+    image.onload = async () => {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-resetButton.addEventListener('click',()=>{
+        canvas.toBlob(async (blob) => {
+            if (!blob) {
+                console.error('Error creating Blob from canvas');
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('frame', blob, `frame-${Date.now()}.jpeg`);
+
+                const response = await fetch('http://127.0.0.1:5000/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log("Full response data:", data);
+
+                if (data && typeof data.output !== 'undefined') {
+                    const drowsy = data.output;
+                    console.log("result of drowsy output: ", drowsy);
+
+                    console.log("result of isDrowsy output: ", isDrowsy);
+                    
+                    alertButton.style.color = '#fff';
+                    
+
+                    if (drowsy === 'drowsy') {
+                        playAlertSound();
+                        alertButton.textContent='Drowsy --> Danger';
+                        alertButton.style.background='red';
+                        await sleep(1000);
+                        stopAlertSound();
+                    } else if(drowsy === 'awake'){
+                        alertButton.textContent='Awake --> Safe';
+                        alertButton.style.background='green';
+                        
+                    }
+                    
+                } else {
+                    console.error('API response does not contain expected "output" key.');
+                    alertButton.textContent='No face';
+                    alertButton.style.background='#ee7628';
+                }
+
+                uploadButton.textContent = 'Upload Image';
+            } catch (error) {
+                console.error('Error sending frame to server:', error);
+            }
+        }, 'image/jpeg');
+    };
+
+}
+
+resetButton.addEventListener('click', () => {
     location.reload();
 })

@@ -1,4 +1,3 @@
-# !pip install mediapipe
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import cv2
 import numpy as np
@@ -7,6 +6,10 @@ import os
 import matplotlib.pyplot as plt
 from flask import Flask, request, jsonify
 from keras.models import model_from_json
+from flask_cors import CORS
+
+
+
     
 mp_facemesh = mp.solutions.face_mesh
 mp_drawing  = mp.solutions.drawing_utils
@@ -92,7 +95,19 @@ def landmarks(image):
                 
     return img
 
+# load model
+json_file_path = os.path.join(os.path.dirname(__file__), 'model.json')
+weights_file_path = os.path.join(os.path.dirname(__file__), 'model.h5')
+
+with open(json_file_path, 'r') as json_file:
+    loaded_model_json = json_file.read()
+
+model = model_from_json(loaded_model_json)
+model.load_weights(weights_file_path)
+
+
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
 allowed_extention = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
@@ -100,10 +115,10 @@ def allowed_file(filename):
 
 @app.route('/', methods=['POST'])
 def process():
-    if 'image' not in request.files:
+    if 'frame' not in request.files:
         return jsonify({"error": "No image part in the request"}), 400
 
-    file = request.files['image']
+    file = request.files['frame']
     if file.filename == '':
         return jsonify({"error": "No image selected for uploading"}), 400
 
@@ -119,15 +134,7 @@ def process():
             X = X.reshape(-1, 145, 145, 3)
             X = X / 255.0
 
-            json_file_path = os.path.join(os.path.dirname(__file__), 'modelcomplete.json')
-            weights_file_path = os.path.join(os.path.dirname(__file__), 'modelcomplete.h5')
-
-            with open(json_file_path, 'r') as json_file:
-                loaded_model_json = json_file.read()
-
-            model = model_from_json(loaded_model_json)
-            model.load_weights(weights_file_path)
-
+            
             img_class = model.predict(X)
             if img_class >= 0.5:
                 return jsonify({"output": "awake"})
@@ -135,9 +142,9 @@ def process():
                 return jsonify({"output": "drowsy"})
 
         except Exception as e:
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "ther is no face to detect"})
 
-    return jsonify({"error": "File not allowed"}), 400
+    return jsonify({"error": "File not allowed"})
 
 if __name__ == '__main__':
     app.run(debug=True)
