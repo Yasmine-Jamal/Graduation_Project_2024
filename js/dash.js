@@ -72,8 +72,15 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch((error) => {
                 // Handle errors
-                console.error('Error:', error.message);
-                alert(error.message);
+                if(error.message==""){
+                    console.error('Error: there is no alerts for this trip');
+                    alert('Error: there is no alerts for this trip');
+                }
+                else {
+                    console.error('Error: '+error.message);
+                    alert(error.message);
+                }
+                
             });
     }
 
@@ -125,9 +132,16 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch((error) => {
                 // Handle errors
                 console.log(email);
-                console.error('Error:', error.message);
-                alert(error.message);
-                // document.getElementById('registrationError').textContent = error.message;
+                if(error.message==""){
+                    if(confirm("There is no trips for this email.\nDo you want to do trip??")){
+                        window.location.href = ".//detection.html";
+                    }
+                    else{}
+                }
+                else {
+                    console.error('Error: '+error.message);
+                    alert(error.message);
+                }
             });
 
 
